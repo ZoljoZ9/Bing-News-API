@@ -1,0 +1,22 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="container1">
+    <div class="logo-section">
+        <div class="logo">
+            <img src="logo.png" alt="Loop Logo">
+        </div>
+        <div class="text-section">
+            <p>Stay in the Loop</p>
+        </div>
+    </div>
+
+    <!-- Send the search query as a GET request -->
+    <form method="get" action="/PublicSearchResults">
+        <input type="text" class="input-field" name="searchQuery" placeholder="Search your favourtie topic" required />
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+</div>

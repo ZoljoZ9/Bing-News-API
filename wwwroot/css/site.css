@@ -1,0 +1,258 @@
+/* Add variables for light and dark themes */
+:root {
+    --background-color-light: #f2f2f2; /* Light mode background color */
+    --background-color-dark: #0d0d0d; /* Darker black for body in dark mode */
+    --text-color-light: #000; /* Light mode text color */
+    --text-color-dark: #fff; /* Dark mode text color */
+    --footer-bg-light: #fff; /* Light mode footer color */
+    --footer-bg-dark: #2c2c2c; /* Light black for footer and navbar in dark mode */
+    --container-bg-neo: #c4ff63; /* Neo green background for containers */
+    --container-surround-light: #e0e0e0; /* Light surround for containers in light mode */
+    --container-surround-dark: #0d0d0d; /* Dark black surround for containers in dark mode */
+    --input-bg-light: #f1f1f1;
+    --input-bg-dark: #444444;
+}
+
+/* Light theme */
+[data-bs-theme="light"] {
+    --background-color: var(--background-color-light);
+    --text-color: var(--text-color-light);
+    --footer-bg: var(--footer-bg-light); /* Same light background for footer and navbar */
+    --navbar-bg: var(--footer-bg-light); /* Same light background for footer and navbar */
+    --container-surround: var(--container-surround-light); /* Light gray around containers */
+    --input-bg: var(--input-bg-light);
+}
+
+/* Dark theme */
+[data-bs-theme="dark"] {
+    --background-color: var(--background-color-dark); /* Darker black for surrounding areas */
+    --text-color: var(--text-color-dark);
+    --footer-bg: var(--footer-bg-dark); /* Light black for footer */
+    --navbar-bg: var(--footer-bg-dark); /* Light black for navbar (same as footer) */
+    --container-surround: var(--container-surround-dark); /* Dark black surround for containers */
+    --input-bg: var(--input-bg-dark);
+}
+
+/* Apply theme-aware colors */
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+/* Header and Footer Styling */
+header, footer, nav.navbar {
+    background-color: var(--footer-bg); /* Use same background for navbar and footer */
+    color: var(--text-color);
+}
+
+/* Container 1 and 2 styling - Neo green background in all themes */
+.container1, .container2 {
+    background-color: var(--container-bg-neo); /* Fixed neo green background */
+    color: black; /* Force black text color regardless of theme */
+    padding: 30px 20px;
+    text-align: center;
+    width: 100%;
+    max-width: 900px;
+    border-radius: 5px;
+    margin-top: 20px;
+    box-shadow: 0px 4px 6px var(--container-surround); /* Light or dark border based on theme */
+    position: absolute; /* Position it relative to the viewport */
+    top: 50%; /* Move to the middle vertically */
+    left: 50%; /* Move to the middle horizontally */
+    transform: translate(-50%, -50%); /* Offset by 50% of its own size */
+}
+
+    /* Ensure text inside the text-section is always black */
+    .container1 .text-section p,
+    .container2 .text-section p {
+        color: black; /* Force black text for all <p> inside text-section */
+    }
+
+
+/* Additional styling for container1 */
+.container1 {
+    padding: 50px;
+    width: 800px;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+/* Blue button styling */
+.blue-button {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+    .blue-button:hover {
+        background-color: var(--button-bg); /* Maintain hover color */
+    }
+
+/* Neo button styling */
+.neo-button {
+    background-color: var(--container-bg-neo); /* Neo green background */
+    color: black; /* Fixed black text */
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+    .neo-button:hover {
+        background-color: #a0cc52; /* Change hover color */
+    }
+
+/* Logo and text sections */
+.logo-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.logo img {
+    width: 600px;
+    height: 200px;
+    margin-right: 10px;
+}
+
+.text-section h1 {
+    font-size: 48px;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.text-section p {
+    font-size: 48px;
+    color: var(--text-color);
+    margin-top: 100px;
+    font-weight: bold;
+}
+
+/* Input fields styling */
+.input-field {
+    width: 100%;
+    padding: 10px;
+    margin-top: 50px;
+    border-radius: 25px;
+    border: 1px solid #ccc;
+    background-color: white; /* Set input background to white */
+    color: black; /* Ensure text color is black */
+    font-size: 16px;
+    outline: none;
+}
+
+input[type=text], input[type=password] {
+    background-color: white; /* Set input background to white */
+    color: black; /* Ensure text color is black */
+}
+
+    input[type=text]:focus, input[type=password]:focus {
+        background-color: white; /* Keep background white on focus */
+        color: black; /* Ensure text remains black */
+        outline: none;
+        border-color: #999; /* Optionally change the border on focus */
+    }
+html, body {
+    height: 100%; /* Ensures full height for body and html */
+    margin: 0; /* Remove default margin */
+    display: flex;
+    flex-direction: column;
+}
+
+.layout-container {
+    flex: 1; /* Allows content to take up remaining space */
+    display: flex;
+    flex-direction: column;
+}
+
+.content-container {
+    flex: 1; /* Makes sure content takes up available space */
+    padding-bottom: 50px;
+}
+
+footer.footer {
+    flex-shrink: 0;
+    background-color: #f8f9fa;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    position: relative !important; /* Override conflicting styles */
+    bottom: 0 !important;
+}
+
+
+/* Footer container for social icons */
+.footer .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer .social-icons {
+    display: flex;
+    gap: 15px; /* Adds spacing between icons */
+}
+
+    .footer .social-icons a {
+        color: var(--text-color);
+        font-size: 1.5rem;
+        text-decoration: none;
+    }
+
+        .footer .social-icons a:hover {
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+
+/* Theme Picker Dropdown */
+.theme-picker {
+    position: fixed; /* Fix it relative to the viewport */
+    bottom: 120px; /* Position it above the footer */
+    right: 20px; /* Align it to the right */
+    z-index: 1050; /* Ensure it is above the footer and other content */
+}
+
+    .theme-picker button {
+        background-color: var(--footer-bg); /* Match the button background with the theme */
+        border: none;
+        border-radius: 50px;
+        padding: 10px 15px;
+    }
+
+    .theme-picker ul.dropdown-menu {
+        background-color: var(--footer-bg); /* Dropdown background */
+    }
+
+        .theme-picker ul.dropdown-menu button {
+            color: var(--text-color);
+        }
+
+            .theme-picker ul.dropdown-menu button:hover {
+                background-color: rgba(0, 0, 0, 0.1); /* Hover effect */
+            }
+.signin-text {
+    margin-top: 800px; /* Adds space between the container content and the sign-in text */
+    font-size: 16px;
+    text-align: center;
+}
+
+    .signin-text a {
+        color: var(--text-color); /* Link color matches theme text color */
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+        .signin-text a:hover {
+            text-decoration: underline; /* Underline the link on hover */
+        }
