@@ -46,7 +46,7 @@ header, footer, nav.navbar {
 }
 
 /* Container 1 and 2 styling - Neo green background in all themes */
-.container1, .container2 {
+.container1 {
     background-color: var(--container-bg-neo); /* Fixed neo green background */
     color: black; /* Force black text color regardless of theme */
     padding: 30px 20px;
@@ -182,13 +182,14 @@ html, body {
 
 footer.footer {
     flex-shrink: 0;
-    background-color: #f8f9fa;
+    background-color: var(--footer-bg); /* Use theme variable for background color */
     padding: 20px;
     text-align: center;
     width: 100%;
-    position: relative !important; /* Override conflicting styles */
+    position: relative !important;
     bottom: 0 !important;
 }
+
 
 
 /* Footer container for social icons */
@@ -241,18 +242,47 @@ footer.footer {
             .theme-picker ul.dropdown-menu button:hover {
                 background-color: rgba(0, 0, 0, 0.1); /* Hover effect */
             }
-.signin-text {
-    margin-top: 800px; /* Adds space between the container content and the sign-in text */
-    font-size: 16px;
-    text-align: center;
+/* Main container to center everything vertically */
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    gap: 20px; /* Space between main container and text */
 }
 
-    .signin-text a {
+/* Shared styling for both login and registration containers */
+.register-container, .login-container {
+    background-color: var(--container-bg-neo); /* Neo green color */
+    color: black;
+    padding: 30px 20px;
+    text-align: center;
+    max-width: 900px; /* Same width as the register container */
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px var(--container-surround);
+    position: relative; /* Keeps it in the normal flow */
+}
+
+/* Sign-in and register text styling */
+/* Sign-in and register text styling */
+.signin-text, .register-text {
+    font-size: 16px;
+    text-align: center;
+    color: var(--text-color); /* Use theme-aware text color */
+    padding: 10px;
+    background-color: var(--background-color); /* Match background to theme */
+    position: relative;
+    margin-top: 20px;
+}
+
+    .signin-text a, .register-text a {
         color: var(--text-color); /* Link color matches theme text color */
         text-decoration: none;
         font-weight: bold;
     }
 
-        .signin-text a:hover {
+        .signin-text a:hover, .register-text a:hover {
             text-decoration: underline; /* Underline the link on hover */
         }
+
