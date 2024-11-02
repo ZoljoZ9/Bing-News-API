@@ -4,7 +4,7 @@ using System.Security.Claims;
 
 namespace Info.Pages
 {
-    [Authorize] // Ensure that only logged-in users can access this page
+    [Authorize] // Only logged-in users can access this page
     public class DashboardModel : PageModel
     {
         public string Username { get; set; }
@@ -12,7 +12,9 @@ namespace Info.Pages
 
         public void OnGet()
         {
-            // Retrieve the logged-in user's username and email from their claims
+            Console.WriteLine("Dashboard OnGet method executed");
+
+            // Retrieve the logged-in user's username and email from claims
             Username = User.FindFirstValue(ClaimTypes.Name);
             Email = User.FindFirstValue(ClaimTypes.Email);
         }
