@@ -29,11 +29,26 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    app.UseHsts();
+    //app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+// Middleware for serving the Let's Encrypt challenge files
+app.Use(async (context, next) =>
+{
+    if (context.Request.Path.StartsWithSegments("/.well-known/acme-challenge"))
+    {
+        await next();
+    }
+    else
+    {
+        // Allow the request to continue to the next middleware in the pipeline
+        await next();
+    }
+});
+
 
 app.UseRouting();
 

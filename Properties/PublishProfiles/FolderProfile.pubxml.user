@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>C:\Users\matth\source\repos\Info\Info\bin\Release\net8.0\publish\</_PublishTargetUrl>
+    <History>True|2024-11-05T18:49:19.8654420Z||;True|2024-11-05T13:48:50.9646654-05:00||;True|2024-11-04T17:56:26.0831219-05:00||;True|2024-11-04T17:53:41.4856855-05:00||;True|2024-11-04T17:42:53.9886643-05:00||;True|2024-11-04T17:38:57.9151453-05:00||;True|2024-11-04T15:14:58.6289650-05:00||;True|2024-11-02T18:49:02.3478578-04:00||;True|2024-11-02T18:48:25.0113441-04:00||;True|2024-11-02T18:48:18.7937126-04:00||;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+</Project>
