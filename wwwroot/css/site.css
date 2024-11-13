@@ -81,6 +81,8 @@ header, footer, nav.navbar {
     margin: 0 auto;
 }
 
+
+
 /* Blue button styling */
 .blue-button {
     background-color: var(--button-bg);
@@ -217,13 +219,16 @@ footer.footer {
 
 
 /* Theme Picker Dropdown */
+/* Theme Picker Dropdown */
 .theme-picker {
-    position: fixed; /* Fix it relative to the viewport */
-    bottom: 120px; /* Position it above the footer */
-    right: 20px; /* Align it to the right */
-    z-index: 1050; /* Ensure it is above the footer and other content */
+    position: absolute; /* Position relative to the footer */
+    bottom: 100%; /* Place it just above the footer */
+    right: 20px; /* Align to the right */
+    z-index: 1050; /* Ensure it stays above other elements */
+    margin-bottom: 20px; /* Add spacing above the footer */
 }
 
+    /* Styling for the button */
     .theme-picker button {
         background-color: var(--footer-bg); /* Match the button background with the theme */
         border: none;
@@ -231,6 +236,7 @@ footer.footer {
         padding: 10px 15px;
     }
 
+    /* Dropdown Menu Styling */
     .theme-picker ul.dropdown-menu {
         background-color: var(--footer-bg); /* Dropdown background */
     }
@@ -242,6 +248,24 @@ footer.footer {
             .theme-picker ul.dropdown-menu button:hover {
                 background-color: rgba(0, 0, 0, 0.1); /* Hover effect */
             }
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .theme-picker {
+        right: 10px; /* Bring closer to the edge */
+        margin-bottom: 15px; /* Adjust spacing */
+    }
+}
+
+@media (max-width: 480px) {
+    .theme-picker {
+        right: 5px; /* Align closer for small screens */
+        margin-bottom: 10px; /* Slightly reduce spacing */
+    }
+}
+
+
+
 /* Main container to center everything vertically */
 .form-container {
     display: flex;
@@ -286,3 +310,155 @@ footer.footer {
             text-decoration: underline; /* Underline the link on hover */
         }
 
+
+
+.scrollable-results {
+    max-height: 400px; /* Set the height of the scrollable area */
+    overflow-y: auto; /* Enable vertical scrolling */
+    margin-bottom: 20px; /* Add spacing between results and pagination */
+    padding-right: 10px; /* Add some padding to avoid scrollbar overlap */
+}
+
+.scrollable-results ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.scrollable-results li {
+    margin-bottom: 15px; /* Add spacing between results */
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.pagination li {
+    margin: 0 5px;
+}
+
+.pagination a {
+    text-decoration: none;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #007bff;
+}
+
+.pagination .active a {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+/* General adjustments for scaling font sizes and widths */
+body, html {
+    font-size: 16px;
+}
+
+/* Tablet view (max-width: 768px) */
+@media (max-width: 768px) {
+    .container1, .container2 {
+        width: 90%; /* Full width for smaller screens */
+        padding: 20px;
+        height: auto; /* Let height adjust naturally */
+        position: static;
+        transform: none;
+        margin: 20px auto; /* Center with margin */
+    }
+
+    .logo img {
+        width: 100%;
+        height: auto;
+    }
+
+    .text-section h1 {
+        font-size: 32px;
+        margin-top: 20px;
+    }
+
+    .text-section p {
+        font-size: 18px;
+        margin-top: 20px;
+    }
+
+    .blue-button, .neo-button {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    .input-field {
+        width: 100%;
+        margin-top: 15px;
+        font-size: 14px;
+    }
+
+    footer.footer {
+        padding: 15px;
+        font-size: 14px;
+    }
+
+
+
+    .form-container {
+        gap: 10px;
+    }
+
+    .register-container, .login-container {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .signin-text, .register-text {
+        font-size: 14px;
+    }
+}
+
+/* Mobile view (max-width: 480px) */
+@media (max-width: 480px) {
+    .container1, .container2 {
+        padding: 15px;
+        border-radius: 3px;
+    }
+
+    .logo img {
+        width: 80%;
+        height: auto;
+    }
+
+    .text-section h1 {
+        font-size: 24px;
+    }
+
+    .text-section p {
+        font-size: 16px;
+    }
+
+    .blue-button, .neo-button {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    footer.footer {
+        font-size: 12px;
+        padding: 10px;
+    }
+
+    .form-container {
+        gap: 5px;
+    }
+
+    .register-container, .login-container {
+        padding: 15px;
+    }
+
+    .signin-text, .register-text {
+        font-size: 12px;
+    }
+
+}
