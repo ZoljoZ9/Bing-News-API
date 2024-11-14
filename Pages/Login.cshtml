@@ -8,6 +8,13 @@
         <h2 style="text-align:center">Login to keep in the Loop</h2>
 
         <h1>Login</h1>
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Error:</strong> Invalid username or password. Please try again.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
 
 
         <form method="post">

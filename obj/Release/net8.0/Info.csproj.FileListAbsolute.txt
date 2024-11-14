@@ -143,4 +143,3 @@ C:\Users\matth\source\repos\Info\Info\obj\Release\net8.0\refint\Info.dll
 C:\Users\matth\source\repos\Info\Info\obj\Release\net8.0\Info.pdb
 C:\Users\matth\source\repos\Info\Info\obj\Release\net8.0\Info.genruntimeconfig.cache
 C:\Users\matth\source\repos\Info\Info\obj\Release\net8.0\ref\Info.dll
-C:\Users\matth\source\repos\Info\Info\bin\Release\net8.0\UserData.db
