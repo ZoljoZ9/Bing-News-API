@@ -1,6 +1,7 @@
 C:\Users\matth\source\repos\Info\Info\obj\Release\net8.0\PubTmp\Out\Info.exe
 C:\Users\matth\source\repos\Info\Info\obj\Release\net8.0\PubTmp\Out\appsettings.Development.json
 C:\Users\matth\source\repos\Info\Info\obj\Release\net8.0\PubTmp\Out\appsettings.json
+C:\Users\matth\source\repos\Info\Info\obj\Release\net8.0\PubTmp\Out\UserData.db
 C:\Users\matth\source\repos\Info\Info\obj\Release\net8.0\PubTmp\Out\Info.dll
 C:\Users\matth\source\repos\Info\Info\obj\Release\net8.0\PubTmp\Out\Info.runtimeconfig.json
 C:\Users\matth\source\repos\Info\Info\obj\Release\net8.0\PubTmp\Out\Info.pdb

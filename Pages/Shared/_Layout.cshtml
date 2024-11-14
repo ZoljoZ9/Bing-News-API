@@ -31,25 +31,67 @@
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm border-bottom box-shadow">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">Loop</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Login">Login</a>
-                        </li>
-                    </ul>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <!-- Authenticated Navbar -->
+            <nav class="navbar navbar-expand-lg" aria-label="Fifth navbar example" style="background-color: var(--navbar-bg); color: var(--text-color);">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#" style="color: var(--text-color);">Expand at lg</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarsExample05">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#" style="color: var(--text-color);">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" style="color: var(--text-color);">Link</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link disabled" aria-disabled="true" style="color: var(--text-color);">Disabled</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false" style="color: var(--text-color);">Dropdown</a>
+                                <ul class="dropdown-menu" style="background-color: var(--navbar-bg);">
+                                    <li><a class="dropdown-item" href="#" style="color: var(--text-color);">Action</a></li>
+                                    <li><a class="dropdown-item" href="#" style="color: var(--text-color);">Another action</a></li>
+                                    <li><a class="dropdown-item" href="#" style="color: var(--text-color);">Something else here</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <form role="search">
+                            <input class="form-control" type="search" placeholder="Search" aria-label="Search" style="background-color: var(--input-bg); color: var(--text-color); border: 1px solid var(--container-surround);">
+                        </form>
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
+        }
+
+        else
+        {
+            <!-- Navbar for unauthenticated users -->
+            <nav class="navbar navbar-expand-sm border-bottom box-shadow">
+                <div class="container">
+                    <a class="navbar-brand" asp-area="" asp-page="/Index">Loop</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-page="/Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-page="/Login">Login</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        }
     </header>
 
     <div class="layout-container">

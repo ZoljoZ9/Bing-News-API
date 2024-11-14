@@ -219,13 +219,16 @@ footer.footer {
 
 
 /* Theme Picker Dropdown */
+/* Theme Picker Dropdown */
 .theme-picker {
-    position: fixed; /* Fix it relative to the viewport */
-    bottom: 120px; /* Position it above the footer */
-    right: 20px; /* Align it to the right */
-    z-index: 1050; /* Ensure it is above the footer and other content */
+    position: absolute; /* Position relative to the footer */
+    bottom: 100%; /* Place it just above the footer */
+    right: 20px; /* Align to the right */
+    z-index: 1050; /* Ensure it stays above other elements */
+    margin-bottom: 20px; /* Add spacing above the footer */
 }
 
+    /* Styling for the button */
     .theme-picker button {
         background-color: var(--footer-bg); /* Match the button background with the theme */
         border: none;
@@ -233,6 +236,7 @@ footer.footer {
         padding: 10px 15px;
     }
 
+    /* Dropdown Menu Styling */
     .theme-picker ul.dropdown-menu {
         background-color: var(--footer-bg); /* Dropdown background */
     }
@@ -244,6 +248,24 @@ footer.footer {
             .theme-picker ul.dropdown-menu button:hover {
                 background-color: rgba(0, 0, 0, 0.1); /* Hover effect */
             }
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .theme-picker {
+        right: 10px; /* Bring closer to the edge */
+        margin-bottom: 15px; /* Adjust spacing */
+    }
+}
+
+@media (max-width: 480px) {
+    .theme-picker {
+        right: 5px; /* Align closer for small screens */
+        margin-bottom: 10px; /* Slightly reduce spacing */
+    }
+}
+
+
+
 /* Main container to center everything vertically */
 .form-container {
     display: flex;
@@ -381,10 +403,7 @@ body, html {
         font-size: 14px;
     }
 
-    .theme-picker {
-        bottom: 80px;
-        right: 10px;
-    }
+
 
     .form-container {
         gap: 10px;
@@ -442,7 +461,4 @@ body, html {
         font-size: 12px;
     }
 
-    .theme-picker {
-        bottom: 60px;
-    }
 }
