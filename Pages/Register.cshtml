@@ -3,38 +3,38 @@
 @{
 }
 <form method="post">
-    <div class="form-container">
-        <div class="register-container">
-            <h1>Register</h1>
-            <p>Please fill in this form to create an account.</p>
-            <hr>
+            <div class="form-container">
+            <div class="register-container">
+                <h1>Register</h1>
+                <p>Please fill in this form to create an account.</p>
+                <hr>
+                <form method="post">
+                    <validation-summary model-only css-class="alert alert-danger" />
 
-            <label asp-for="Input.Username"><b>Username</b></label>
-            <input asp-for="Input.Username" placeholder="Enter Username" required />
-            <span asp-validation-for="Input.Username" class="text-danger"></span>
+                    <label asp-for="Input.Username"><b>Username</b></label>
+                <input asp-for="Input.Username" placeholder="Enter Username" required />
+                    <span asp-validation-for="Input.Username" class="text-danger"></span>
 
-            <label asp-for="Input.Email"><b>Email</b></label>
-            <input asp-for="Input.Email" placeholder="Enter Email" required />
-            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    <label asp-for="Input.Email"><b>Email</b></label>
+                <input asp-for="Input.Email" placeholder="Enter Email" type="email" required />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
 
-            <label asp-for="Input.Password"><b>Password</b></label>
-            <input asp-for="Input.Password" placeholder="Enter Password" required />
-            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    <label asp-for="Input.Password"><b>Password</b></label>
+                <input asp-for="Input.Password" type="password" placeholder="Enter Password" required />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
 
-            <label asp-for="Input.ConfirmPassword"><b>Repeat Password</b></label>
-            <input asp-for="Input.ConfirmPassword" placeholder="Repeat Password" required />
-            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-            <hr>
+                    <label asp-for="Input.ConfirmPassword"><b>Confirm Password</b></label>
+                <input asp-for="Input.ConfirmPassword" type="password" placeholder="Re-Enter Password" required />
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
 
-            <p>By creating an account you agree to our <a href="/Login">Terms & Privacy</a>.</p>
-            <button type="submit" class="registerbtn">Register</button>
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </form>
+            </div>
+            <div class="signin-text">
+                <p>Already have an account? <a href="/Login">Sign in</a></p>
+            </div>
         </div>
-
-        <div class="signin-text">
-            <p>Already have an account? <a href="/Login">Sign in</a></p>
-        </div>
-    </div>
-</form>
+        </form>
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }

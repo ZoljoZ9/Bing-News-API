@@ -21,14 +21,16 @@ namespace Info.Pages
         public class InputModel
         {
             [Required]
+            [StringLength(50, ErrorMessage = "Username must be between 3 and 50 characters.", MinimumLength = 3)]
             public string Username { get; set; }
 
             [Required]
-            [EmailAddress]
+            [EmailAddress(ErrorMessage = "Invalid email address.")]
             public string Email { get; set; }
 
             [Required]
             [DataType(DataType.Password)]
+            [StringLength(100, ErrorMessage = "Password must be at least 6 characters long.", MinimumLength = 6)]
             public string Password { get; set; }
 
             [Required]
@@ -37,6 +39,7 @@ namespace Info.Pages
             public string ConfirmPassword { get; set; }
         }
 
+
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -44,6 +47,25 @@ namespace Info.Pages
                 return Page();
             }
 
+            // Normalize inputs to lowercase for comparison
+            var normalizedUsername = Input.Username.ToLower();
+            var normalizedEmail = Input.Email.ToLower();
+
+            // Check for duplicate username
+            if (_context.Users.Any(u => u.Username.ToLower() == normalizedUsername))
+            {
+                ModelState.AddModelError("Input.Username", "Username is already taken.");
+                return Page();
+            }
+
+            // Check for duplicate email
+            if (_context.Users.Any(u => u.Email.ToLower() == normalizedEmail))
+            {
+                ModelState.AddModelError("Input.Email", "An account with this email already exists.");
+                return Page();
+            }
+
+            // Create a new user
             var user = new AppUser
             {
                 Username = Input.Username,
@@ -56,5 +78,6 @@ namespace Info.Pages
 
             return RedirectToPage("/Login");
         }
+
     }
 }

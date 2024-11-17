@@ -41,7 +41,11 @@ namespace Info.Pages
                 return Page();
             }
 
-            var user = _context.Users.SingleOrDefault(u => u.Username == Input.Username);
+            // Normalize username or email to lowercase for comparison
+            var normalizedUsername = Input.Username.ToLower();
+
+            // Check for user by normalized username
+            var user = _context.Users.SingleOrDefault(u => u.Username.ToLower() == normalizedUsername);
 
             if (user != null && BCrypt.Net.BCrypt.Verify(Input.Password, user.PasswordHash))
             {
@@ -74,6 +78,7 @@ namespace Info.Pages
             ModelState.AddModelError(string.Empty, "Invalid login attempt.");
             return Page();
         }
+
 
 
     }
