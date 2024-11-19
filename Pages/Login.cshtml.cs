@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
 using System.Security.Claims;
 
 namespace Info.Pages
@@ -23,63 +22,64 @@ namespace Info.Pages
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "Username is required")]
             public string Username { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Password is required")]
             [DataType(DataType.Password)]
             public string Password { get; set; }
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        public IActionResult OnGet(string returnUrl = null)
         {
-            Debug.WriteLine("Login attempt");
-
-            if (!ModelState.IsValid)
+            // Check if the user is already authenticated
+            if (User.Identity.IsAuthenticated)
             {
-                Debug.WriteLine("Model state invalid");
-                return Page();
+                return RedirectToPage("/Dashboard");
             }
 
-            // Normalize username or email to lowercase for comparison
-            var normalizedUsername = Input.Username.ToLower();
-
-            // Check for user by normalized username
-            var user = _context.Users.SingleOrDefault(u => u.Username.ToLower() == normalizedUsername);
-
-            if (user != null && BCrypt.Net.BCrypt.Verify(Input.Password, user.PasswordHash))
-            {
-                Debug.WriteLine("Login successful");
-
-                var claims = new List<Claim>
-        {
-            new Claim(ClaimTypes.Name, user.Username),
-            new Claim(ClaimTypes.Email, user.Email)
-        };
-
-                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                var principal = new ClaimsPrincipal(identity);
-
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
-
-                if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
-                {
-                    Debug.WriteLine("Redirecting to ReturnUrl: " + returnUrl);
-                    return Redirect(returnUrl);
-                }
-                else
-                {
-                    Debug.WriteLine("Redirecting to Dashboard");
-                    return RedirectToPage("/Dashboard");
-                }
-            }
-
-            Debug.WriteLine("Invalid login attempt");
-            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
             return Page();
         }
 
+        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
 
+            // Normalize and validate username
+            var normalizedUsername = Input.Username.ToLower();
+            var user = _context.Users.FirstOrDefault(u => u.Username.ToLower() == normalizedUsername);
 
+            if (user != null && BCrypt.Net.BCrypt.Verify(Input.Password, user.PasswordHash))
+            {
+                // Create claims for the user
+                var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, user.Username),
+                new Claim(ClaimTypes.Email, user.Email)
+            };
+
+                // Create identity and principal
+                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var principal = new ClaimsPrincipal(identity);
+
+                // Sign in user
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
+                // Redirect to returnUrl or dashboard
+                if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                {
+                    return Redirect(returnUrl);
+                }
+
+                return RedirectToPage("/Dashboard");
+            }
+
+            // If login fails
+            ModelState.AddModelError(string.Empty, "Invalid username or password.");
+            return Page();
+        }
     }
 }

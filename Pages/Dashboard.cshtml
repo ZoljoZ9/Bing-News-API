@@ -15,5 +15,15 @@
         <input type="text" class="input-field" name="searchQuery" placeholder="Search your favorite topic" value="@Request.Query["searchQuery"]" required />
         <button type="submit" class="btn btn-primary">Search</button>
     </form>
-
 </div>
+
+<script>
+    // Push an initial state to the history
+    history.pushState(null, "", window.location.href);
+
+    // Listen for the popstate event triggered by the back button
+    window.addEventListener("popstate", function (event) {
+        // Redirect to logout when back is pressed
+        window.location.href = "/Logout";
+    });
+</script>

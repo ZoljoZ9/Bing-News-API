@@ -1,6 +1,7 @@
 using Info.Pages.Model;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +11,6 @@ builder.Services.AddDbContext<UserDbContext>(options =>
 
 builder.Services.AddRazorPages();
 builder.Services.AddAuthorization();
-
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
@@ -19,7 +19,13 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.AccessDeniedPath = "/AccessDenied";
     });
 
-builder.Services.AddSession();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(20);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 builder.Services.AddHttpClient();
 builder.Services.AddLogging();
 
@@ -29,36 +35,18 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    //app.UseHsts();
+    app.UseHsts();
 }
 
-//app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-// Middleware for serving the Let's Encrypt challenge files
-app.Use(async (context, next) =>
-{
-    if (context.Request.Path.StartsWithSegments("/.well-known/acme-challenge"))
-    {
-        await next();
-    }
-    else
-    {
-        // Allow the request to continue to the next middleware in the pipeline
-        await next();
-    }
-});
 
 
 app.UseRouting();
-
-// Enable session middleware
-app.UseSession();
-
-// Ensure authentication and authorization middleware are correctly ordered
-app.UseAuthentication();
-app.UseAuthorization();
-
-app.MapRazorPages();
+app.UseSession(); // Enable session middleware
+app.UseAuthentication(); // Authenticate users
+app.UseAuthorization();  // Enforce authorization policies
+app.MapRazorPages(); // Map Razor Pages endpoints
 
 app.Run();

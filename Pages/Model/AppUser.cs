@@ -1,4 +1,6 @@
-﻿namespace Info.Pages.Model
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Info.Pages.Model
 {
     public class AppUser
     {
@@ -7,6 +9,7 @@
         public string Email { get; set; }
         public string PasswordHash { get; set; }
     }
+
 
 
 }

@@ -22,6 +22,17 @@ namespace Info.Pages
 
         public async Task OnGetAsync(string searchQuery, int pageNumber = 1)
         {
+            // Prevent caching to disable back navigation
+            Response.Headers.Add("Cache-Control", "no-cache, no-store, must-revalidate");
+            Response.Headers.Add("Pragma", "no-cache");
+            Response.Headers.Add("Expires", "0");
+
+            // Redirect to login if the user is not authenticated
+            if (!User.Identity.IsAuthenticated)
+            {
+                Response.Redirect("/Account/Login");
+            }
+
             Username = User.FindFirstValue(ClaimTypes.Name);
             Email = User.FindFirstValue(ClaimTypes.Email);
 
