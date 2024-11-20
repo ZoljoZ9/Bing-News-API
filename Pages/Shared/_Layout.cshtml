@@ -44,10 +44,10 @@
                     <div class="collapse navbar-collapse" id="navbarsExample05">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#" style="color: var(--text-color);">Home</a>
+                                <a class="nav-link active" aria-current="page" href="/Dashboard" style="color: var(--text-color);">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#" style="color: var(--text-color);">Following</a>
+                                <a class="nav-link" href="/followingPage" style="color: var(--text-color);">Following</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#" style="color: var(--text-color);">U.S.</a>
@@ -87,9 +87,19 @@
                                 </ul>
                             </li>
                         </ul>
-                        <form role="search">
-                            <input class="form-control" type="search" placeholder="Search" aria-label="Search" style="background-color: var(--input-bg); color: var(--text-color); border: 1px solid var(--container-surround);">
+                        <form method="get" action="/PublicSearchResults" class="d-flex align-items-center" role="search" style="gap: 5px;">
+                            <input class="form-control me-2"
+                                   type="search"
+                                   name="searchQuery"
+                                   placeholder="Search"
+                                   aria-label="Search"
+                                   style="background-color: var(--input-bg); color: var(--text-color); border: 1px solid var(--container-surround);">
+                            <button type="submit"
+                                    class="btn btn-primary">
+                                Search
+                            </button>
                         </form>
+
                     </div>
                 </div>
             </nav>

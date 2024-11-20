@@ -11,7 +11,7 @@
     <p>This is your personalized dashboard. Search for topics of your interest below.</p>
 
     <!-- Search Form -->
-    <form method="get" action="/Dashboard">
+    <form method="get" action="/PublicSearchResults">
         <input type="text" class="input-field" name="searchQuery" placeholder="Search your favorite topic" value="@Request.Query["searchQuery"]" required />
         <button type="submit" class="btn btn-primary">Search</button>
     </form>

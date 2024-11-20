@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -14,28 +15,34 @@ namespace Info.Pages
         public string Username { get; set; }
         public string Email { get; set; }
         public List<dynamic> NewsArticles { get; set; } = new List<dynamic>();
-        public string SearchQuery { get; set; }
 
         public int PageNumber { get; set; } = 1; // Current page number
         public int TotalPages { get; set; } // Total number of pages
         public int TotalResults { get; set; } // Total number of results
 
-        public async Task OnGetAsync(string searchQuery, int pageNumber = 1)
-        {
-            // Prevent caching to disable back navigation
-            Response.Headers.Add("Cache-Control", "no-cache, no-store, must-revalidate");
-            Response.Headers.Add("Pragma", "no-cache");
-            Response.Headers.Add("Expires", "0");
+        [BindProperty]
+        public string? SearchQuery { get; set; }
 
+        private readonly ILogger<DashboardModel> _logger;
+
+        public DashboardModel(ILogger<DashboardModel> logger)
+        {
+            _logger = logger;
+        }
+
+        public async Task<IActionResult> OnGetAsync(string searchQuery = "", int pageNumber = 1)
+        {
             // Redirect to login if the user is not authenticated
             if (!User.Identity.IsAuthenticated)
             {
-                Response.Redirect("/Account/Login");
+                return RedirectToPage("/Account/Login");
             }
 
-            Username = User.FindFirstValue(ClaimTypes.Name);
-            Email = User.FindFirstValue(ClaimTypes.Email);
+            // Bind Username and Email from Claims
+            Username = User.FindFirstValue(ClaimTypes.Name) ?? "Unknown User";
+            Email = User.FindFirstValue(ClaimTypes.Email) ?? "Unknown Email";
 
+            // Ensure search query and pagination variables are set
             SearchQuery = searchQuery;
             PageNumber = pageNumber;
             int pageSize = 10; // Number of articles per page
@@ -52,6 +59,8 @@ namespace Info.Pages
                     {
                         client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", apiKey);
                         var response = await client.GetStringAsync(apiUrl);
+
+                        _logger.LogInformation("API Response: {Response}", response);
 
                         var newsData = JsonConvert.DeserializeObject<Dictionary<string, object>>(response);
                         if (newsData != null && newsData.ContainsKey("value"))
@@ -70,11 +79,19 @@ namespace Info.Pages
                         }
                     }
                 }
-                catch
+                catch (Exception ex)
                 {
+                    _logger.LogError(ex, "Error fetching articles from Bing News API.");
                     ViewData["Message"] = "An error occurred while fetching articles. Please try again.";
                 }
             }
+
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            return await OnGetAsync(SearchQuery, PageNumber);
         }
     }
 }
