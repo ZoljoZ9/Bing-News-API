@@ -1,5 +1,10 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
+using Info.Pages.Model;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 public class PublicSearchResults : PageModel
 {
@@ -9,32 +14,31 @@ public class PublicSearchResults : PageModel
     public int TotalResults { get; set; }
 
     private readonly ILogger<PublicSearchResults> _logger;
+    private readonly UserDbContext _dbContext; // Use UserDbContext
 
-    public PublicSearchResults(ILogger<PublicSearchResults> logger)
+    public PublicSearchResults(ILogger<PublicSearchResults> logger, UserDbContext dbContext)
     {
         _logger = logger;
+        _dbContext = dbContext;
     }
 
     public async Task OnGetAsync(string searchQuery, int pageNumber = 1)
     {
         PageNumber = pageNumber;
-        int pageSize = 10;  // Define how many results you want per page
-        int offset = (PageNumber - 1) * pageSize;  // Calculate the offset for pagination
+        int pageSize = 10; // Define how many results you want per page
+        int offset = (PageNumber - 1) * pageSize; // Calculate the offset for pagination
 
         try
         {
             if (!string.IsNullOrWhiteSpace(searchQuery))
             {
-                string apiKey = "be1137cec3e34918ba30c5ce7495ea42";  // Replace with your Bing News API key
+                string apiKey = "be1137cec3e34918ba30c5ce7495ea42"; // Your Bing News API key
                 string apiUrl = $"https://api.bing.microsoft.com/v7.0/news/search?q={searchQuery}&count={pageSize}&offset={offset}";
 
                 using (HttpClient client = new HttpClient())
                 {
                     client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", apiKey);
                     var response = await client.GetStringAsync(apiUrl);
-
-                    // Log full response for debugging
-                    _logger.LogInformation("Full response: {Response}", response);
 
                     var newsData = JsonConvert.DeserializeObject<Dictionary<string, object>>(response);
                     if (newsData != null && newsData.ContainsKey("value"))
@@ -60,4 +64,44 @@ public class PublicSearchResults : PageModel
             ViewData["Message"] = "An error occurred while searching for articles. Please try again later.";
         }
     }
+
+
+    public async Task<IActionResult> OnPostFollowTopicAsync(string topic)
+    {
+        // Check if the user is authenticated
+        if (!User.Identity.IsAuthenticated)
+        {
+            // Redirect to the login page with the topic as a return parameter
+            return RedirectToPage("/Login", new { returnUrl = "/followingPage", topic });
+        }
+
+        // Retrieve the UserId from claims
+        var userIdClaim = User.FindFirst("UserId")?.Value;
+        if (string.IsNullOrEmpty(userIdClaim))
+        {
+            _logger.LogError("UserId claim not found.");
+            return RedirectToPage("/Error");
+        }
+
+        var userId = int.Parse(userIdClaim); // Convert UserId to int
+
+        // Save the followed topic
+        var followedTopic = new FollowedTopic
+        {
+            UserId = userId,
+            Topic = topic
+        };
+
+        _dbContext.FollowedTopics.Add(followedTopic);
+        await _dbContext.SaveChangesAsync();
+
+        TempData["Message"] = $"You are now following the topic: {topic}";
+
+        // Redirect to the Following page
+        return RedirectToPage("/followingPage");
+    }
+
+
+
+
 }

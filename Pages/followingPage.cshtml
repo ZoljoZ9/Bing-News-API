@@ -1,14 +1,35 @@
 ﻿@page
 @model Info.Pages.followingPageModel
-@{
-    ViewData["Title"] = "Dashboard";
-}
 
-<div class="container1">
-    <h1>The topics you're following, @Model.Username!</h1>
-    <p>Enjoy!</p>
+<div class="container">
+    <h1>Topics You're Following, @Model.Username!</h1>
 
-
+    @if (Model.FollowedTopics != null && Model.FollowedTopics.Any())
+    {
+        <div class="topics-container">
+            @foreach (var topic in Model.FollowedTopics)
+            {
+                <form method="get" action="/PublicSearchResults">
+                    <input type="hidden" name="searchQuery" value="@topic" />
+                    <button type="submit" class="btn btn-primary topic-button">@topic</button>
+                </form>
+            }
+        </div>
+    }
+    else
+    {
+        <p>You are not following any topics yet. Start searching and following topics of interest!</p>
+    }
 </div>
 
-
+<style>
+    .topics-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .topic-button {
+        font-size: 16px;
+        padding: 10px 15px;
+    }
+</style>

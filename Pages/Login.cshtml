@@ -16,26 +16,31 @@
             </div>
         }
 
+<form method="post">
+    <!-- Hidden fields for returnUrl and topic -->
+    <input type="hidden" name="returnUrl" value="@HttpContext.Request.Query["returnUrl"]" />
+    <input type="hidden" name="topic" value="@HttpContext.Request.Query["topic"]" />
 
-        <form method="post">
-            <label asp-for="Input.Username"><b>Username</b></label>
-            <input asp-for="Input.Username" placeholder="Enter Username" required />
-            <span asp-validation-for="Input.Username" class="text-danger"></span>
+    <label asp-for="Input.Username"><b>Username</b></label>
+    <input asp-for="Input.Username" placeholder="Enter Username" required />
+    <span asp-validation-for="Input.Username" class="text-danger"></span>
 
-            <label asp-for="Input.Password"><b>Password</b></label>
-            <input asp-for="Input.Password" type="password" placeholder="Enter Password" required />
-            <span asp-validation-for="Input.Password" class="text-danger"></span>
+    <label asp-for="Input.Password"><b>Password</b></label>
+    <input asp-for="Input.Password" type="password" placeholder="Enter Password" required />
+    <span asp-validation-for="Input.Password" class="text-danger"></span>
 
-            <button type="submit" class="loginbtn">Login</button>
-            <a class="blue-button" href="/Register">Register</a>
+    <button type="submit" class="loginbtn">Login</button>
+            <a class="blue-button" href="/Register?returnUrl=@HttpContext.Request.Query["returnUrl"]&topic=@HttpContext.Request.Query["topic"]">Register</a>
             <a href="#" style="color:blue" class="btn">Forgot password?</a>
-        </form>
-    </div>
+
+</form>
+</div>
 
     <div class="register-text">
-        <p>Don’t have an account? <a href="/Register">Register here</a></p>
+        <p>Don’t have an account? <a href="/Register?returnUrl=@HttpContext.Request.Query["returnUrl"]&topic=@HttpContext.Request.Query["topic"]">Register here</a></p>
     </div>
 </div>
+
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }

@@ -38,12 +38,22 @@
                                 <p>No image available</p>
                             }
                         </td>
-                        <td><a href="@article.url" target="_blank">@article.name (@searchQuery)</a></td>
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <a href="@article.url" target="_blank">@article.name</a>
+                                <form method="post" asp-page-handler="FollowTopic" style="display: inline;">
+                                    <input type="hidden" name="topic" value="@article.name" />
+                                    <button type="submit" class="btn btn-sm btn-success">Follow</button>
+                                </form>
+                            </div>
+                        </td>
                         <td>@article.provider[0]?.name</td>
                         <td>@article.datePublished?.ToString("yyyy-MM-dd")</td>
                     </tr>
                 }
             </tbody>
+
+
         </table>
     </div>
 

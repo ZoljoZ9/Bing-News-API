@@ -10,6 +10,9 @@
                 <hr>
                 <form method="post">
                     <validation-summary model-only css-class="alert alert-danger" />
+                <!-- Hidden fields for returnUrl and topic -->
+                <input type="hidden" name="returnUrl" value="@HttpContext.Request.Query["returnUrl"]" />
+                <input type="hidden" name="topic" value="@HttpContext.Request.Query["topic"]" />
 
                     <label asp-for="Input.Username"><b>Username</b></label>
                 <input asp-for="Input.Username" placeholder="Enter Username" required />

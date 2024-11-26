@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
 using BCrypt.Net;
 using Info.Pages.Model;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
 
 namespace Info.Pages
 {
@@ -39,45 +42,47 @@ namespace Info.Pages
             public string ConfirmPassword { get; set; }
         }
 
-
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(string returnUrl = null, string topic = null)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            // Normalize inputs to lowercase for comparison
+            // Normalize inputs to lowercase for consistency
             var normalizedUsername = Input.Username.ToLower();
             var normalizedEmail = Input.Email.ToLower();
 
-            // Check for duplicate username
+            // Check if the username already exists
             if (_context.Users.Any(u => u.Username.ToLower() == normalizedUsername))
             {
                 ModelState.AddModelError("Input.Username", "Username is already taken.");
                 return Page();
             }
 
-            // Check for duplicate email
+            // Check if the email already exists
             if (_context.Users.Any(u => u.Email.ToLower() == normalizedEmail))
             {
                 ModelState.AddModelError("Input.Email", "An account with this email already exists.");
                 return Page();
             }
 
-            // Create a new user
+            // Create and save the new user
             var user = new AppUser
             {
                 Username = Input.Username,
                 Email = Input.Email,
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword(Input.Password)
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(Input.Password) // Hash the password
             };
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("/Login");
+            // Redirect to the login page with returnUrl and topic
+            TempData["SuccessMessage"] = "Registration successful. Please log in to continue.";
+            return RedirectToPage("/Login", new { returnUrl, topic });
         }
+
 
     }
 }
