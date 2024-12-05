@@ -18,12 +18,20 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\matth\source\repos\Info\Info
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/matth/source/repos/Info/Info/Pages/breakingSearchResults.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcYnJlYWtpbmdTZWFyY2hSZXN1bHRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/matth/source/repos/Info/Info/Pages/Dashboard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGFzaGJvYXJkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/matth/source/repos/Info/Info/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/matth/source/repos/Info/Info/Pages/followingPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcZm9sbG93aW5nUGFnZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/matth/source/repos/Info/Info/Pages/Index.cshtml]
@@ -46,8 +54,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVnaXN0ZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/matth/source/repos/Info/Info/Pages/searchresultsUSA.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcc2VhcmNocmVzdWx0c1VTQS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/matth/source/repos/Info/Info/Pages/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/matth/source/repos/Info/Info/Pages/worldSearchResults.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcd29ybGRTZWFyY2hSZXN1bHRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/matth/source/repos/Info/Info/Pages/_ViewImports.cshtml]

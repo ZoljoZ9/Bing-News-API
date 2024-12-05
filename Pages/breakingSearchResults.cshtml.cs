@@ -37,7 +37,8 @@ namespace Info.Pages
             try
             {
                 string apiKey = "be1137cec3e34918ba30c5ce7495ea42";
-                string apiUrl = $"https://api.bing.microsoft.com/v7.0/news/search?q=breaking+world+news&count={pageSize}&offset={offset}&mkt=en-US";
+                string apiUrl = $"https://api.bing.microsoft.com/v7.0/news/search?q=breaking+news+OR+urgent+OR+attack+OR+emergency&count={pageSize}&offset={offset}&mkt=en-US&sortBy=Date&freshness=Day";
+
 
                 _logger.LogInformation($"API URL: {apiUrl}");
 
