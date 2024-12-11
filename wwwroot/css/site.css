@@ -164,6 +164,14 @@ input[type=text], input[type=password] {
         outline: none;
         border-color: #999; /* Optionally change the border on focus */
     }
+
+input[type=email] {
+
+    background-color: var(--input-bg-color, white);
+    color: var(--input-text-color, black);
+
+}
+
 html, body {
     height: 100%; /* Ensures full height for body and html */
     margin: 0; /* Remove default margin */
